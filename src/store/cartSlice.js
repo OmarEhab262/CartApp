@@ -9,7 +9,13 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItemToCart: (state, action) => {
-      state.cartItems.push(action.payload);
+      const { id, name, price, image, quantity } = action.payload;
+      const existingItem = state.cartItems.find((item) => item.id === id);
+      if (existingItem) {
+        existingItem.quantity += quantity; // Increment quantity if item exists
+      } else {
+        state.cartItems.push({ id, name, price, image, quantity: 1 }); // Default quantity to 1 if item is added for the first time
+      }
     },
     updateCartItem: (state, action) => {
       const { id, quantity, size, color } = action.payload;

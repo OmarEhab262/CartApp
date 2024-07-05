@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import { updateCartItem } from "../store/cartSlice";
 import Nav from "./Nav";
-import { addItemToCart } from "../store/cartSlice";
 import Cart from "./Cart";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cartActive } from "../store/active";
+
 const colorMap = {
   "": "white",
   "bg-black": "black",
@@ -16,55 +17,55 @@ const colorMap = {
   "bg-yellow-400": "yellow",
 };
 
-const ProductDetail = () => {
+const EditCartItem = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
-  const [count, setCount] = useState(1);
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const navigate = useNavigate();
-  const selectedItem = useSelector((state) =>
-    state.items.items.find((item) => item.id === parseInt(id))
-  );
+  const itemToEdit = cartItems.find((item) => item.id === parseInt(id));
 
-  const handleAddToCart = () => {
-    const itemToAdd = {
-      id: selectedItem.id,
-      name: selectedItem.name,
-      image: selectedItem.image,
-      price: selectedItem.price,
-      quantity: count,
-      size: selectedSize,
-      color: selectedColor,
-    };
-    dispatch(addItemToCart(itemToAdd));
-    console.log("Item added to cart:", itemToAdd);
+  const [count, setCount] = useState(itemToEdit.quantity);
+  const [selectedSize, setSelectedSize] = useState(itemToEdit.size);
+  const [selectedColor, setSelectedColor] = useState(itemToEdit.color);
+
+  const handleUpdateCart = () => {
+    dispatch(
+      updateCartItem({
+        id: itemToEdit.id,
+        quantity: count,
+        size: selectedSize,
+        color: selectedColor,
+      })
+    );
     toast.success("Cart item updated successfully!");
     setTimeout(() => {
       dispatch(cartActive({ changeCart: false }));
       navigate("/page");
-    }, 2000); // Delay to allow the toast to be visible before nav
+    }, 2000); // Delay to allow the toast to be visible before navigating away
   };
+
+  useEffect(() => {
+    if (!itemToEdit) {
+      navigate("/cart");
+    }
+  }, [itemToEdit, navigate]);
 
   return (
     <div>
-      <Cart />
       <Nav />
       <div className="content flex mt-[50px] justify-center lg:flex-row flex-col">
         <div className="img lg:w-[500px] w-[90%] ">
           <img
-            src={selectedItem.image}
-            alt={selectedItem.name}
+            src={itemToEdit.image}
+            alt={itemToEdit.name}
             className="rounded-xl"
           />
         </div>
         <div className="text flex flex-col px-[50px] pt-[50px] pl-[60px] lg:w-[40%] w-full">
-          <h2 className="text-[40px] font-bold">{selectedItem.name}</h2>
-          <p className="text-[20px] font-medium text-blue-500 ">
-            Price: ${selectedItem.price}
+          <h2 className="text-[40px] font-bold">{itemToEdit.name}</h2>
+          <p className="text-[20px] font-medium text-blue-500">
+            Price: ${itemToEdit.price}
           </p>
-
           <p className="text-[20px] mt-[30px] mb-[10px]">Size</p>
           <div className="sizes flex gap-10 flex-wrap">
             {["S", "M", "L", "XL", "XXL"].map((size) => (
@@ -79,7 +80,6 @@ const ProductDetail = () => {
               </button>
             ))}
           </div>
-
           <p className="text-[20px] mt-[30px] mb-[10px]">Color</p>
           <div className="sizes flex gap-5">
             {Object.entries(colorMap).map(([className, colorName]) => (
@@ -94,15 +94,8 @@ const ProductDetail = () => {
               ></button>
             ))}
           </div>
-
           <div className="btn flex gap-5 my-[30px]">
-            <button
-              className="text-white bg-black p-[10px] px-[15px] rounded-md"
-              onClick={handleAddToCart}
-            >
-              Add to cart
-            </button>
-            <div className="text-white bg-black p-[10px] pointer  rounded-md">
+            <div className="text-white bg-black p-[10px] pointer rounded-md">
               <button
                 onClick={() => setCount(count + 1)}
                 className="pointer mx-[15px]"
@@ -117,11 +110,19 @@ const ProductDetail = () => {
                 -
               </button>
             </div>
+            <button
+              className="text-white bg-black p-[10px] px-[15px] rounded-md"
+              onClick={handleUpdateCart}
+            >
+              Save Changes
+            </button>
           </div>
         </div>
       </div>
+      <Cart />
+      <ToastContainer />
     </div>
   );
 };
 
-export default ProductDetail;
+export default EditCartItem;

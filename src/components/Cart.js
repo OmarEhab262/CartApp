@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActive } from "../store/active";
 import { removeItemFromCart } from "../store/cartSlice";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -48,26 +49,40 @@ const Cart = () => {
                 key={item.id}
                 className="item flex p-4 border-b border-gray-300 relative"
               >
-                <img src={item.image} alt="" className="w-[100px] rounded-xl" />
+                <img
+                  src={item.image}
+                  alt=""
+                  className="w-[100px] h-[100px] my-auto rounded-xl"
+                />
                 <div className="info ml-[20px]">
                   <p className="font-bold">{item.name}</p>
                   <p>quantity: {item.quantity}</p>
-                  <p>Size: {item.size}</p>
-                  <p>Color: {item.color}</p>
+                  <p className={!item.size ? "hidden" : ""}>
+                    Size: {item.size}
+                  </p>
+                  <p className={!item.color ? "hidden" : ""}>
+                    Color: {item.color}
+                  </p>
                   <p>Price: ${(item.price * item.quantity).toFixed(2)}</p>
                 </div>
                 <div className="actions">
                   <button
-                    className="text-red-500 font-bold  absolute right-6 "
-                    onClick={() => handleRemoveItem(item.id)} // Call handleRemoveItem with item id
+                    className="text-red-500 font-bold absolute left-6 top-6"
+                    onClick={() => handleRemoveItem(item.id)}
                   >
                     X
                   </button>
+                  <Link
+                    to={`/edit/${item.id}`}
+                    className="text-blue-500 font-bold absolute right-6 top-4"
+                  >
+                    Edit
+                  </Link>
                 </div>
               </div>
             ))}
             <div className="total-price">
-              <p className="font-bold text-xl my-4  ml-3">
+              <p className="font-bold text-xl my-4 ml-3">
                 Total Price: ${total.toFixed(2)}
               </p>
             </div>
