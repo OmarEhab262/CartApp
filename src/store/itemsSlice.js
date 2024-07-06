@@ -100,7 +100,7 @@ const initialState = {
     {
       id: 11,
       image: n3,
-      name: "T-shirt 6",
+      name: "T-shirt 11",
       price: 17.99,
 
       type: "children",
@@ -108,7 +108,7 @@ const initialState = {
     {
       id: 12,
       image: n4,
-      name: "T-shirt 7",
+      name: "T-shirt 12",
       price: 19.49,
 
       type: "children",
@@ -116,7 +116,7 @@ const initialState = {
     {
       id: 13,
       image: n5,
-      name: "T-shirt 8",
+      name: "T-shirt 13",
       price: 23.99,
 
       type: "children",
@@ -124,7 +124,7 @@ const initialState = {
     {
       id: 14,
       image: n6,
-      name: "T-shirt 9",
+      name: "T-shirt 14",
       price: 21.49,
 
       type: "children",
@@ -132,7 +132,7 @@ const initialState = {
     {
       id: 15,
       image: n7,
-      name: "T-shirt 10",
+      name: "T-shirt 15",
       price: 20.49,
 
       type: "children",

@@ -54,11 +54,11 @@ const EditCartItem = () => {
     <div>
       <Nav />
       <div className="content flex mt-[50px] justify-center lg:flex-row flex-col">
-        <div className="img lg:w-[500px] w-[90%] ">
+        <div className="img lg:w-[500px] w-[90%] mx-auto lg:mx-0 ">
           <img
             src={itemToEdit.image}
             alt={itemToEdit.name}
-            className="rounded-xl"
+            className="rounded-xl   "
           />
         </div>
         <div className="text flex flex-col px-[50px] pt-[50px] pl-[60px] lg:w-[40%] w-full">

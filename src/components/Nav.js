@@ -28,7 +28,7 @@ const Nav = () => {
 
   const { cartItems } = useSelector((state) => state.cart);
   const { activeName } = useSelector((state) => state.active);
-  const totalCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  //   const totalCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <nav className="block w-full max-w-screen-xl px-6 py-3 mx-auto text-white bg-white border shadow-md rounded-xl border-white/80 bg-opacity-80 backdrop-blur-2xl backdrop-saturate-200">
@@ -113,7 +113,7 @@ const Nav = () => {
             </li>
             <li className="block p-1 font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
               <div
-                className="flex items-center transition-colors hover:text-blue-500 relative cursor-pointer  "
+                className="flex items-center transition-colors hover:text-blue-500  cursor-pointer  "
                 onClick={cartggg}
               >
                 <svg
@@ -130,12 +130,14 @@ const Nav = () => {
                     d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
                   />
                 </svg>
-                Bag
-                {totalCount > 0 && (
-                  <span className="bg-red-600 rounded-full absolute w-[20px] h-[20px] text-center text-white right-[-18px] top-[-10px]">
-                    {totalCount}
-                  </span>
-                )}
+                <span className="relative">
+                  Bag
+                  {cartItems.length > 0 && (
+                    <span className="bg-red-600 rounded-full absolute w-[20px] h-[20px] text-center text-white right-[-18px] top-[-10px]">
+                      {cartItems.length}
+                    </span>
+                  )}
+                </span>
               </div>
             </li>
           </ul>

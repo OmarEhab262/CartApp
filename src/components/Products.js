@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectItem } from "../store/itemsSlice";
 import { addItemToCart } from "../store/cartSlice"; // Import the action
 import { Link } from "react-router-dom";
-import Nav from "./Nav";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Products = () => {
   const { activeName } = useSelector((state) => state.active);
   const items = useSelector((state) => state.items.items);
-  const cartItems = useSelector((state) => state.cart.cartItems); // Optional: Get cart items
 
   const dispatch = useDispatch();
 
@@ -23,6 +22,7 @@ const Products = () => {
 
   const addToCartHandler = (item) => {
     dispatch(addItemToCart(item)); // Dispatch addItemToCart action with the item
+    toast.success("Added to Cart successfully!");
   };
 
   return (
@@ -64,6 +64,7 @@ const Products = () => {
           </div>
         ))}
       </div>
+      <ToastContainer />
     </>
   );
 };

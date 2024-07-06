@@ -12,7 +12,9 @@ import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App cairo-custom">
+      {" "}
+      {/* Use the custom class here */}
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />

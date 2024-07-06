@@ -27,8 +27,8 @@ const Cart = () => {
   return (
     <div
       className={`${
-        changeCart ? "fixed" : "hidden"
-      } bg-white overflow-scroll overflow-x-hidden h-[70vh] right-0 border-2 border-gray-400 w-[300px] z-20 rounded-tl-2xl rounded-bl-2xl top-[10px]`}
+        changeCart ? "right-0" : "right-[-300px]"
+      } fixed bg-white overflow-scroll ease-in duration-300 overflow-x-hidden h-[70vh] right-0 border-2 border-gray-400 w-[300px] z-20 rounded-tl-2xl rounded-bl-2xl top-[10px]`}
     >
       <div className="head flex justify-between">
         <h1 className="text-2xl p-[20px]">Cart {name} </h1>

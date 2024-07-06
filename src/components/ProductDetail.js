@@ -19,7 +19,7 @@ const colorMap = {
 const ProductDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { cartItems } = useSelector((state) => state.cart);
+
   const [count, setCount] = useState(1);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -39,7 +39,7 @@ const ProductDetail = () => {
       color: selectedColor,
     };
     dispatch(addItemToCart(itemToAdd));
-    console.log("Item added to cart:", itemToAdd);
+    // console.log("Item added to cart:", itemToAdd);
     toast.success("Cart item updated successfully!");
     setTimeout(() => {
       dispatch(cartActive({ changeCart: false }));
@@ -52,11 +52,11 @@ const ProductDetail = () => {
       <Cart />
       <Nav />
       <div className="content flex mt-[50px] justify-center lg:flex-row flex-col">
-        <div className="img lg:w-[500px] w-[90%] ">
+        <div className="img lg:w-[500px] w-[90%] mx-auto lg:mx-0 ">
           <img
             src={selectedItem.image}
             alt={selectedItem.name}
-            className="rounded-xl"
+            className="rounded-xl  "
           />
         </div>
         <div className="text flex flex-col px-[50px] pt-[50px] pl-[60px] lg:w-[40%] w-full">
@@ -120,6 +120,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
