@@ -10,7 +10,9 @@ const cartSlice = createSlice({
   reducers: {
     addItemToCart: (state, action) => {
       const { id, name, price, image, color, size, quantity } = action.payload;
-      const existingItem = state.cartItems.find((item) => item.id === id);
+      const existingItem = state.cartItems.find(
+        (item) => item.id === id && item.color === color && item.size === size
+      );
       if (existingItem) {
         existingItem.quantity += quantity ? quantity : 1; // Increment quantity if item exists
       } else {
@@ -19,8 +21,8 @@ const cartSlice = createSlice({
           name,
           price,
           image,
-          color,
-          size,
+          color: color ? color : "white",
+          size: size ? size : "S",
           quantity: quantity ? quantity : 1,
         }); // Default quantity to 1 if item is added for the first time
       }
