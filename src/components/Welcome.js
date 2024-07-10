@@ -6,11 +6,14 @@ const Welcome = () => {
   setTimeout(() => {
     navigate("/page");
   }, 2000);
-  const { name } = useSelector((state) => state.user);
+  const users = useSelector((state) => state.user.users);
   return (
     <div className="flex justify-center items-center h-[100vh]">
       <h1 className="text-[50px] text-center my-auto  border border-gray-500 border-[4px] rounded-xl p-[30px]">
-        Welcome back <span className="font-bold">{name}</span>{" "}
+        Welcome back
+        {users.map((user) => (
+          <h1 key={user.id}>{user.name}</h1>
+        ))}
       </h1>
     </div>
   );

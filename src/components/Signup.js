@@ -11,9 +11,24 @@ const Signup = () => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addUser({ name: userName, email: email, password: password }));
+    const user = { name: userName, email, password };
+    dispatch(addUser(user));
+
+    // Retrieve existing users from localStorage
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Add the new user to the array
+    existingUsers.push(user);
+
+    // Store the updated array back into localStorage
+    localStorage.setItem("users", JSON.stringify(existingUsers));
+
     navigate("/welcome");
   };
+
+  const users = JSON.parse(localStorage.getItem("users"));
+  console.log(users);
+
   return (
     <div className="flex justify-center items-center  h-screen">
       <div className="relative flex flex-col text-gray-700 bg-transparent shadow-none rounded-xl bg-clip-border my-auto border border-gray-500 p-[30px]">

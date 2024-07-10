@@ -1,13 +1,10 @@
-import withMT from "@material-tailwind/html/utils/withMT";
+// tailwind.config.js
+const withMT = require("@material-tailwind/html/utils/withMT");
 
-export default withMT({
+module.exports = withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {
-      fontFamily: {
-        cairo: ["Cairo", "sans-serif"],
-      },
-    },
+    extend: {},
   },
   plugins: [],
 });

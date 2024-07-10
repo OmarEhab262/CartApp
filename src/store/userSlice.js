@@ -1,26 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
 
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    name: "",
-    email: "",
-    password: "",
+    users: [],
   },
   reducers: {
     addUser: (state, action) => {
-      state.name = action.payload.name;
-      state.email = action.payload.email;
-      state.password = action.payload.password;
+      const newUser = {
+        id: uuidv4(),
+        name: action.payload.name,
+        email: action.payload.email,
+        password: action.payload.password,
+        image: action.payload.image || null,
+      };
+      state.users.push(newUser);
     },
-    removeUser: (state) => {
-      state.name = "";
-      state.email = "";
-      state.password = "";
+    updateUser: (state, action) => {
+      const index = state.users.findIndex(
+        (user) => user.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.users[index] = action.payload;
+      }
+    },
+    removeUser: (state, action) => {
+      state.users = state.users.filter((user) => user.id !== action.payload.id);
     },
   },
 });
 
-export const { addUser, removeUser } = userSlice.actions;
+export const { addUser, updateUser, removeUser } = userSlice.actions;
 
 export default userSlice.reducer;

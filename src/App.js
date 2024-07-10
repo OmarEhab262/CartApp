@@ -9,10 +9,11 @@ import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail"; // Import the ProductDetail component
 import EditCartItem from "./components/EditCartItem";
 import { ToastContainer } from "react-toastify";
+import Account from "./components/Account";
 
 function App() {
   return (
-    <div className="App cairo-custom">
+    <div className="App ">
       {" "}
       {/* Use the custom class here */}
       <Router>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/page" element={<Page />} />
           {/* Route for displaying all products */}
           <Route path="/products" element={<Products />} />
+          <Route path="/account" element={<Account />} />
           <Route path="/edit/:id" element={<EditCartItem />} />
           {/* Route for displaying product details */}
           <Route path="/products/:id" element={<ProductDetail />} />
